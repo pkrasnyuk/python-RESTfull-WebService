@@ -1,0 +1,18 @@
+{
+  "db": {
+	"connectionString": "mongodb://localhost:27017",
+    "dbName": "restdb"
+  },
+  "app": {
+    "host": "localhost",
+    "port": 1200
+  },
+  "security": {
+    "privateKey": "39LvDSm45vjYOh90",
+    "tokenExpiry": 3600
+  },
+  "logging": {
+    "loggingName": "app_logger",
+    "loggingFile": "app.log"
+  }
+}
