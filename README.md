@@ -1,2 +1,2 @@
-# app_pythonRESTfullWebService
-An example of python Restfull Web Service (Python + Flask)
+# A RESTfull WebService
+An example of Restfull Web Service (Python + Flask)
