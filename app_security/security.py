@@ -1,7 +1,7 @@
 import datetime
 import jwt
 from flask_httpauth import HTTPTokenAuth
-from security_helper import *
+from app_security.security_helper import *
 import helpers
 
 
@@ -28,12 +28,13 @@ class Security:
     def verify_token(self, token):
         if not (helpers.is_blank(token) or helpers.is_blank(self.__security_private_key)):
             try:
-                result = jwt.decode(token, self.__security_private_key, algorithms=['HS256'])
+                result = jwt.decode(jwt=token, key=self.__security_private_key, verify=True,
+                                           algorithms=['HS256'])
                 return result is not None
             except jwt.ExpiredSignatureError as e:
                 if self.__logger is not None:
-                    self.__logger.error(e.message)
-                print e
+                    self.__logger.error(e)
+                print(e)
 
         return False
 

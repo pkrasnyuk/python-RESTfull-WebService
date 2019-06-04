@@ -1,4 +1,4 @@
-from user_type import UserType
+from models.user_type import UserType
 import app_security
 import helpers
 from cerberus import Validator

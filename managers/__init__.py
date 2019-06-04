@@ -1,1 +1,1 @@
-from users_manager import UsersManager
+from managers.users_manager import UsersManager

@@ -23,7 +23,7 @@ class DbAccess:
                 self.__db = self.__client[self.__db_name]
         except Exception as e:
             if self.__logger is not None:
-                self.__logger.error(e.message)
+                self.__logger.error(e)
 
     @property
     def db(self):

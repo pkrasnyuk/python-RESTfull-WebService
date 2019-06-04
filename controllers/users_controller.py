@@ -32,7 +32,7 @@ class UsersController:
                             status=201) if status else Response(json.dumps({'message': 'No user added'}),
                                                                 mimetype=u'application/json', status=500)
         except ValueError as e:
-            return Response(json.dumps({'message': e.message}), mimetype=u'application/json', status=422)
+            return Response(json.dumps({'message': e}), mimetype=u'application/json', status=422)
         except Exception:
             return Response(json.dumps({'message': 'Bad Request'}), mimetype=u'application/json', status=400)
 
@@ -56,7 +56,7 @@ class UsersController:
         try:
             user = self.__manager.get_user(user_id)
             if user is not None:
-                user = User.update(user, data)
+                user = User.update(user, data, {__import__})
 
                 if user is not None and not self.__manager.check_user_email(user.email):
                     return Response(json.dumps({'message': 'An user must have unique email'}),
@@ -71,7 +71,7 @@ class UsersController:
                 return Response(response=json.dumps({'message': 'User not found'}), mimetype=u'application/json',
                                 status=404)
         except ValueError as e:
-            return Response(json.dumps({'message': e.message}), mimetype=u'application/json', status=422)
+            return Response(json.dumps({'message': e}), mimetype=u'application/json', status=422)
         except Exception:
             return Response(json.dumps({'message': 'Bad Request'}), mimetype=u'application/json', status=400)
 
@@ -92,12 +92,11 @@ class UsersController:
                                                                           user.password_salt)
                     if is_password_valid:
                         user_token = security_service.generate_token(user)
-                        return Response(response=json.dumps({'token': 'Bearer {0}'.format(user_token)}),
+                        return Response(response=json.dumps({'token': 'Bearer {0}'.format(user_token.decode('utf-8'))}),
                                         mimetype=u'application/json', status=200)
                     else:
                         return Response(response=json.dumps({'message': message}), mimetype=u'application/json',
                                         status=404)
-            return True
         else:
             return Response(response=json.dumps({'message': 'Incorrect request'}), mimetype=u'application/json',
                             status=500)

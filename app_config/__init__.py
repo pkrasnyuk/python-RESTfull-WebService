@@ -1,6 +1,6 @@
 import json
 import os
-from config import Config
+from app_config.config import Config
 
 
 def load_configuration(config_file_path):
@@ -64,7 +64,7 @@ def __obj_creator(json_object):
 
 def __main():
     config_file_path = "../config.json"
-    print load_configuration(config_file_path)
+    print(load_configuration(config_file_path))
 
 
 if __name__ == '__main__':

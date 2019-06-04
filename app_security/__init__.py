@@ -1,7 +1,7 @@
 import time
 import models
-from security import Security
-from security_helper import *
+from app_security.security import Security
+from app_security.security_helper import *
 import helpers
 
 
@@ -11,18 +11,18 @@ def __main():
 
     password = 'test'
     res = encrypted_password(password)
-    print res
+    print(res)
     validate_status = validate_password(password, res['hash'], res['salt'])
-    print validate_status
+    print(validate_status)
 
     user = models.User("pktest", "pktest@mail.com", "test", models.UserType.Manager)
     token = app_security.generate_token(user)
-    print token
+    print(token)
 
     time.sleep(32)
 
     verification_result = app_security.verify_token(token)
-    print verification_result
+    print(verification_result)
 
 
 if __name__ == '__main__':

@@ -47,7 +47,7 @@ class UsersCollection(Resource):
         return users_controller.add_user(request.json)
 
 
-@instance.route('/<string:id>')
+@instance.route("/<string:id>")
 @instance.param('id', 'The user identifier')
 class UserItem(Resource):
     @staticmethod

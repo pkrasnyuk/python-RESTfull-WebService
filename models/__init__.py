@@ -1,1 +1,2 @@
-from user_model import UserType, User
+from models.user_model import User
+from models.user_type import UserType

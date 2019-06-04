@@ -1,1 +1,1 @@
-from mongo_access import DbAccess
+from db_access.mongo_access import DbAccess

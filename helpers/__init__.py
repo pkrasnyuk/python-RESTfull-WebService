@@ -1,2 +1,2 @@
-from logger import Logger
-from common import *
+from helpers.logger import Logger
+from helpers.common import *
