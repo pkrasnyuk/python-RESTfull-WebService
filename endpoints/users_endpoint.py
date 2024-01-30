@@ -1,32 +1,41 @@
 from flask import request
 from flask_restplus import Namespace, Resource, fields
-import controllers
-from app_core import security_service
 
+from app_core import security_service
+from controllers.users_controller import UsersController
 
 auth = security_service.authentication_init()
-users_controller = controllers.UsersController()
+users_controller = UsersController()
 
-instance = Namespace('users', description='Operations related to users')
+instance = Namespace("users", description="Operations related to users")
 
-register_user_model = instance.model('register_user', {
-    'name': fields.String(required=True, description='User name'),
-    'email': fields.String(required=True, description='User email'),
-    'password': fields.String(required=True, description='User password'),
-    'type': fields.Integer(required=True, description='User type')
-})
+register_user_model = instance.model(
+    "register_user",
+    {
+        "name": fields.String(required=True, description="User name"),
+        "email": fields.String(required=True, description="User email"),
+        "password": fields.String(required=True, description="User password"),
+        "type": fields.Integer(required=True, description="User type"),
+    },
+)
 
-updated_user_model = instance.model('updated_user', {
-    'name': fields.String(required=True, description='User name'),
-    'email': fields.String(required=True, description='User email'),
-    'type': fields.Integer(required=True, description='User type')
-})
+updated_user_model = instance.model(
+    "updated_user",
+    {
+        "name": fields.String(required=True, description="User name"),
+        "email": fields.String(required=True, description="User email"),
+        "type": fields.Integer(required=True, description="User type"),
+    },
+)
 
 
-login_user_model = instance.model('login_user', {
-    'email': fields.String(required=True, description='User email'),
-    'password': fields.String(required=True, description='User password')
-})
+login_user_model = instance.model(
+    "login_user",
+    {
+        "email": fields.String(required=True, description="User email"),
+        "password": fields.String(required=True, description="User password"),
+    },
+)
 
 
 @auth.verify_token
@@ -34,7 +43,7 @@ def verify(token):
     return security_service.verify_token(token)
 
 
-@instance.route('/')
+@instance.route("/")
 class UsersCollection(Resource):
     @staticmethod
     def get():
@@ -48,7 +57,7 @@ class UsersCollection(Resource):
 
 
 @instance.route("/<string:id>")
-@instance.param('id', 'The user identifier')
+@instance.param("id", "The user identifier")
 class UserItem(Resource):
     @staticmethod
     def get(id):
@@ -66,7 +75,7 @@ class UserItem(Resource):
         return users_controller.update_user(id, request.json)
 
 
-@instance.route('/login')
+@instance.route("/login")
 class UserLogin(Resource):
     @staticmethod
     @instance.expect(login_user_model)

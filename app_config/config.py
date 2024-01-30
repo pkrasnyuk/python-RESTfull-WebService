@@ -19,10 +19,19 @@ class Config:
         self.__loggingFile = logging_file
 
     def __str__(self):
-        return " Host: {0}\n Port: {1}\n Connection String: {2}\n DB Name: {3}\n Private Key: {4}" \
-               "\n Token Expiry: {5}\n Logging Name: {6}\n Logging file: {7}" \
-            .format(self.__host, self.__port, self.__connectionString, self.__dbName,
-                    self.__privateKey, self.__tokenExpiry, self.__loggingName, self.__loggingFile)
+        return (
+            " Host: {0}\n Port: {1}\n Connection String: {2}\n DB Name: {3}\n Private Key: {4}"
+            "\n Token Expiry: {5}\n Logging Name: {6}\n Logging file: {7}".format(
+                self.__host,
+                self.__port,
+                self.__connectionString,
+                self.__dbName,
+                self.__privateKey,
+                self.__tokenExpiry,
+                self.__loggingName,
+                self.__loggingFile,
+            )
+        )
 
     @property
     def host(self):

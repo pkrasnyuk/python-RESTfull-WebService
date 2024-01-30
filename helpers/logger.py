@@ -1,4 +1,5 @@
 import logging
+
 import helpers
 
 
@@ -18,7 +19,7 @@ class Logger:
 
             ch = logging.FileHandler(self.__logging_file)
             ch.setLevel(logging.DEBUG)
-            formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+            formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
             ch.setFormatter(formatter)
             self.__logger.addHandler(ch)
 

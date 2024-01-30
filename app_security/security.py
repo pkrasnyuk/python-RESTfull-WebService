@@ -1,8 +1,10 @@
 import datetime
+
 import jwt
 from flask_httpauth import HTTPTokenAuth
-from app_security.security_helper import *
+
 import helpers
+from app_security import security_helper
 
 
 class Security:
@@ -17,19 +19,22 @@ class Security:
 
     def generate_token(self, user):
         if user is not None and not helpers.is_blank(self.__security_private_key) and self.__security_token_expiry > 0:
-            return jwt.encode(payload={
-                "id": str(user.id),
-                "email": user.email,
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=self.__security_token_expiry)},
-                key=self.__security_private_key, algorithm='HS256')
+            return jwt.encode(
+                payload={
+                    "id": str(user.id),
+                    "email": user.email,
+                    "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=self.__security_token_expiry),
+                },
+                key=self.__security_private_key,
+                algorithm="HS256",
+            )
 
         return None
 
     def verify_token(self, token):
         if not (helpers.is_blank(token) or helpers.is_blank(self.__security_private_key)):
             try:
-                result = jwt.decode(jwt=token, key=self.__security_private_key, verify=True,
-                                           algorithms=['HS256'])
+                result = jwt.decode(jwt=token, key=self.__security_private_key, verify=True, algorithms=["HS256"])
                 return result is not None
             except jwt.ExpiredSignatureError as e:
                 if self.__logger is not None:
@@ -43,7 +48,7 @@ class Security:
         message = ""
 
         if request is not None:
-            token = get_token_from_header(request)
+            token = security_helper.get_token_from_header(request)
             if helpers.is_blank(token):
                 code = 404
                 message = "Incorrect request"
@@ -56,8 +61,8 @@ class Security:
             code = 404
             message = "Incorrect request"
 
-        return {'code': code, 'message': message}
+        return {"code": code, "message": message}
 
     @staticmethod
     def authentication_init():
-        return HTTPTokenAuth('Bearer')
+        return HTTPTokenAuth("Bearer")

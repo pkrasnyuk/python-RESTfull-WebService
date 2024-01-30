@@ -1,5 +1,6 @@
 import json
 import os
+
 from app_config.config import Config
 
 
@@ -27,29 +28,29 @@ def __obj_creator(json_object):
 
     if json_object is not None:
 
-        if 'app' in json_object and 'host' in json_object['app']:
-            config_host = json_object['app']['host']
+        if "app" in json_object and "host" in json_object["app"]:
+            config_host = json_object["app"]["host"]
 
-        if 'app' in json_object and 'port' in json_object['app']:
-            config_port = int(json_object['app']['port'])
+        if "app" in json_object and "port" in json_object["app"]:
+            config_port = int(json_object["app"]["port"])
 
-        if 'db' in json_object and 'connectionString' in json_object['db']:
-            config_connection_string = json_object['db']['connectionString']
+        if "db" in json_object and "connectionString" in json_object["db"]:
+            config_connection_string = json_object["db"]["connectionString"]
 
-        if 'db' in json_object and 'dbName' in json_object['db']:
-            config_db_name = json_object['db']['dbName']
+        if "db" in json_object and "dbName" in json_object["db"]:
+            config_db_name = json_object["db"]["dbName"]
 
-        if 'security' in json_object and 'privateKey' in json_object['security']:
-            config_security_private_key = json_object['security']['privateKey']
+        if "security" in json_object and "privateKey" in json_object["security"]:
+            config_security_private_key = json_object["security"]["privateKey"]
 
-        if 'security' in json_object and 'tokenExpiry' in json_object['security']:
-            config_token_expiry = json_object['security']['tokenExpiry']
+        if "security" in json_object and "tokenExpiry" in json_object["security"]:
+            config_token_expiry = json_object["security"]["tokenExpiry"]
 
-        if 'logging' in json_object and 'loggingName' in json_object['logging']:
-            config_logging_name = json_object['logging']['loggingName']
+        if "logging" in json_object and "loggingName" in json_object["logging"]:
+            config_logging_name = json_object["logging"]["loggingName"]
 
-        if 'logging' in json_object and 'loggingFile' in json_object['logging']:
-            config_logging_file = json_object['logging']['loggingFile']
+        if "logging" in json_object and "loggingFile" in json_object["logging"]:
+            config_logging_file = json_object["logging"]["loggingFile"]
 
         return Config(
             host=config_host,
@@ -59,7 +60,8 @@ def __obj_creator(json_object):
             private_key=config_security_private_key,
             token_expiry=config_token_expiry,
             logging_name=config_logging_name,
-            logging_file=config_logging_file)
+            logging_file=config_logging_file,
+        )
 
 
 def __main():
@@ -67,5 +69,5 @@ def __main():
     print(load_configuration(config_file_path))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     __main()
